@@ -63,7 +63,7 @@ function extractValue(str: string, searchTerm: string) {
 
 export function extractFileTitle(str: string): string | null {
   const file =  extractValue(str, "file:");
-  const title =  extractValue(str, "title:");
+  const title =  extractValue(str, "title=");
 
   if (file && title)
     return file;

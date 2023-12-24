@@ -289,6 +289,8 @@ function openLink(event: Event, app: App) {
     app.workspace.openLinkText(dataPath, sourcePath);
 }// openLink
 
+const lineHighlightRegex = /\{(.*)\}/g
+
 function processLineText(lineText: string, codeblockId: number, alternateColors: Record<string, string>) {
   let lineNumber = 0;
   let isSpecificNumber = false;
@@ -316,8 +318,8 @@ function processLineText(lineText: string, codeblockId: number, alternateColors:
         showNumbers = "";
       }
     }
-
-    const params = extractParameter(lineText, "HL:");
+    const execArray = lineHighlightRegex.exec(lineText);
+    const params = execArray ? execArray[1] : "";
     HL = getHighlightedLines(params);
     
     for (const [name, hexValue] of Object.entries(alternateColors)) {
